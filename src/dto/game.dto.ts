@@ -5,3 +5,8 @@ export interface GameDTO {
   title: string;
   console?: ConsoleDTO;
 }
+
+export interface CreateGameDTO {
+  consoleid: number;
+  title: string;
+}
