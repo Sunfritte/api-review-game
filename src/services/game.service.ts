@@ -62,6 +62,25 @@ export class GameService {
   public async deleteGame(id: number): Promise<void> {
     await Game.destroy({ where: { id } });
   }
+
+    public async getGamesByConsoleId(consoleId: number): Promise<Game[]> {
+    const games = await Game.findAll({
+      where: { console_id : consoleId },
+    });
+    return games;
+  }
+
+  public async getReviewsByGameId(gameId: number): Promise<Review[]> {
+    const game = await Game.findByPk(gameId);
+    if (!game) {
+      throw notFound("Game");
+    }
+    const reviews = await Review.findAll({
+      where: { game_id: gameId },
+    });
+
+    return reviews;
+  }
 }
 
 export const gameService = new GameService();

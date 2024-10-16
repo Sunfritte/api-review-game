@@ -46,6 +46,10 @@ export class ReviewService {
         await review.save();
         return review;
     }
+
+    public async deleteReview(id: number): Promise<void> {
+        await Review.destroy({ where: { id } });
+    }
 }
 
 export const reviewService = new ReviewService();

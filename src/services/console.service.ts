@@ -26,7 +26,7 @@ export class ConsoleService {
       include: [
         {
           model: Game,
-          where: { consoleid: consoleId },
+          where: { console_id: consoleId },
         },
       ],
     });
@@ -38,6 +38,7 @@ export class ConsoleService {
   public async deleteConsole(id: number): Promise<void> {
     const console = await Console.findByPk(id);
     if (console) {
+
       console.destroy();
     }
   }

@@ -1,7 +1,8 @@
-import {Body, Controller, Get, Patch, Path, Post, Route, Tags} from "tsoa";
+import {Body, Controller, Delete, Get, Patch, Path, Post, Route, Tags} from "tsoa";
 import {CreateReviewDTO, ReviewDTO} from "../dto/review.dto";
 import { reviewService } from "../services/review.service";
 import {notFound} from "../error/NotFoundError";
+import {consoleService} from "../services/console.service";
 @Route("reviews")
 @Tags("Reviews")
 export class ReviewController extends Controller {
@@ -30,4 +31,13 @@ export class ReviewController extends Controller {
         if (!updatedReview) notFound("Review");
         return updatedReview;
     }
+
+    @Delete("{id}")
+    public async deleteReview(@Path() id: number): Promise<void> {
+        const review = await reviewService.getReviewById(id);
+        if (!review) notFound("Review");
+        await reviewService.deleteReview(id);
+    }
+
+
 }
